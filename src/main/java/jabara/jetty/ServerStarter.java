@@ -24,6 +24,10 @@ public class ServerStarter {
     /**
      * 
      */
+    public static final String  KEY_WEB_PORT                      = "web.port";                       //$NON-NLS-1$
+    /**
+     * 
+     */
     public static final int     DEFAULT_WEB_PORT                  = 8081;
     /**
      * 
@@ -34,18 +38,13 @@ public class ServerStarter {
      */
     public static final String  DEFAULT_CONTEXT_PATH              = "/";                              //$NON-NLS-1$
 
-    private int                 webPort                           = DEFAULT_WEB_PORT;
+    private int                 webPort                           = getWebPortFromSystemProperty();
     private String              webApplicationDirectory           = DEFAULT_WEB_APPLICATION_DIRECTORY;
     private String              contextPath                       = DEFAULT_CONTEXT_PATH;
 
     private final AtomicBoolean started                           = new AtomicBoolean(false);
 
     private Server              server;
-
-    /**
-     * 
-     */
-    public static final String  KEY_WEB_PORT                      = "web.port";                       //$NON-NLS-1$
 
     private WebAppContext       webAppContext;
 
@@ -165,7 +164,7 @@ public class ServerStarter {
     }
 
     private Server createServer() {
-        final Server ret = new Server(getWebPortFromSystemProperty());
+        final Server ret = new Server(this.webPort);
         ret.setHandler(createContext(this.webApplicationDirectory));
         return ret;
     }
