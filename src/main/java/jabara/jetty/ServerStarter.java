@@ -156,7 +156,7 @@ public class ServerStarter {
                         , new FragmentConfiguration() //
                         , new EnvConfiguration() //
                 });
-        this.webAppContext.setContextPath("/"); //$NON-NLS-1$
+        this.webAppContext.setContextPath(this.contextPath);
         this.webAppContext.setResourceBase(pWebAppDirectory);
         this.webAppContext.setParentLoaderPriority(true); // これがないとJARの読み込みに失敗することがある.
 
